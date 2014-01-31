@@ -1,3 +1,4 @@
+require "rvm/capistrano"
 require "bundler/capistrano"
 
 set :application, "Anslem Galaxy"
@@ -7,7 +8,7 @@ set :scm, :git
 set :branch, "master"
 set :user, "ubuntu"
 set :group, "deployers"
-set :use_sudo, false
+set :use_sudo, true
 set :rails_env, "production"
 set :deploy_via, :copy
 set :ssh_options, { :forward_agent => true, :keys => '/Users/nfrees/.ssh/nick_keypair.pem' }

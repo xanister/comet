@@ -46,4 +46,5 @@ end
 
 group :development do
   gem "capistrano", "~> 2.15.0"
+  gem 'rvm-capistrano'
 end
