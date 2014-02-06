@@ -38,5 +38,6 @@ namespace :deploy do
   end
 end
 
+after "deploy", "deploy:db_migrate"
 after "deploy", "deploy:compile_assets"
 after "deploy", "deploy:restart"
