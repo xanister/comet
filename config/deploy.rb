@@ -22,10 +22,16 @@ namespace :deploy do
   task :start do ; end
   task :stop do ; end
 
+  desc "Compile assets"
+  task :compile_assets do
+    run "#{ try_sudo } rake assets:precompile"
+  end
+  
   desc "Restart applicaiton"
   task :restart do
     run "#{ try_sudo } touch #{ File.join(current_path, 'tmp', 'restart.txt') }"
   end
 end
 
+after "deploy", "deploy:compile_assets"
 after "deploy", "deploy:restart"
