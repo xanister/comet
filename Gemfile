@@ -51,4 +51,5 @@ gem "twitter-bootstrap-rails"
 group :development do
   gem "capistrano", "~> 2.15.0"
   gem 'rvm-capistrano'
+  gem 'sqlite3'
 end

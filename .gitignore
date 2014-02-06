@@ -17,3 +17,4 @@
 
 # Other ignores
 .DS_Store
+/nbproject/private/
