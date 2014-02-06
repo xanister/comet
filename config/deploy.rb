@@ -27,6 +27,11 @@ namespace :deploy do
     run "cd /var/www/anslemgalaxy/current && rake assets:precompile"
   end
   
+  desc "DB Migrate"
+  task :db_migrate do
+    run "cd /var/www/anslemgalaxy/current && rake db:migrate"
+  end  
+  
   desc "Restart applicaiton"
   task :restart do
     run "#{ try_sudo } touch #{ File.join(current_path, 'tmp', 'restart.txt') }"
