@@ -48,8 +48,9 @@ gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
 
+gem 'sqlite3'
+
 group :development do
   gem "capistrano", "~> 2.15.0"
   gem 'rvm-capistrano'
-  gem 'sqlite3'
 end
