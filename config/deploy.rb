@@ -24,7 +24,7 @@ namespace :deploy do
 
   desc "Compile assets"
   task :compile_assets do
-    run "#{ try_sudo } rake assets:precompile"
+    run "rake assets:precompile"
   end
   
   desc "Restart applicaiton"
