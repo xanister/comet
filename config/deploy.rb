@@ -24,7 +24,7 @@ namespace :deploy do
 
   desc "Compile assets"
   task :compile_assets do
-    run "rake assets:precompile"
+    run "cd /var/www/anslemgalaxy/current && rake assets:precompile"
   end
   
   desc "Restart applicaiton"
