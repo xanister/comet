@@ -16,7 +16,7 @@ set :keep_releases, 5
 
 default_run_options[:pty] = true
 
-server "54.84.60.91", :app, :web, :db, :primary => true
+server "anslemgalaxy.com", :app, :web, :db, :primary => true
 
 namespace :deploy do
   task :start do ; end
