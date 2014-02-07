@@ -141,7 +141,7 @@ DEPENDENCIES
   capistrano (~> 2.15.0)
   jquery-rails
   less-rails
-  mysql2 (= 0.2.6)
+  mysql2
   rails (= 4.0.2)
   rvm-capistrano
   sass-rails (~> 4.0.0)
