@@ -56,7 +56,7 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <% @projects.each do |p| %>
+                    <% Project.all.each do |p| %>
                       <li role="presentation">
                         <a role="menuitem" tabindex="-1" href="<%= project_path(p) %>"><%= p.name %></a>
                       </li>
