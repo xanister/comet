@@ -29,7 +29,7 @@ namespace :deploy do
   
   desc "DB Migrate"
   task :db_migrate do
-    run "cd /var/www/anslemgalaxy/current && rake db:migrate"
+    run "cd /var/www/anslemgalaxy/current && bundle exec rake db:migrate"
   end    
   
   desc "Compile assets"
@@ -43,7 +43,7 @@ namespace :deploy do
   end
 end
 
-after "deploy", "deploy:bundle_install"
+#after "deploy", "deploy:bundle_install"
 after "deploy", "deploy:db_migrate"
 #after "deploy", "deploy:compile_assets"
 after "deploy", "deploy:restart"
