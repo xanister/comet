@@ -2,10 +2,71 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#test{
-    color: red;
-    
-    .another-test{
-        color: blue;
-    }
+/* Header example */
+.example { margin: 80px auto 40px; background-color: #6f5499;}
+
+.example button, .example button { background: transparent; border: 0; color: #fff; opacity: .5; }
+.example button:hover, .example button:hover { opacity: 1; }
+.example button:disabled, .example button:disabled { opacity: .2; }
+
+.example .forward, .example .backward { float: left; width: 100px; height: 200px; font-size: 60px; }
+.example .forward { float: right; }
+
+.example .frame { margin: 0 auto; width: 940px; height: 200px; line-height: 200px; overflow: hidden; text-shadow: none; }
+.example .frame ul { list-style: none; margin: 0; padding: 0; height: 100%; font-size: 50px; }
+.example .frame ul li { float: left; width: 190px; height: 100%; margin: 0 1px 0 0; padding: 0; background: #eee; color: #3a3c47; text-align: center; cursor: pointer; }
+.example .frame ul li.active { color: #fff; background: #82bf4c; }
+
+.example .scrollbar { margin: 0 auto 30px; width: 940px; height: 2px; line-height: 0; }
+.example .scrollbar .handle { width: 100px; height: 100%; background: #fff; cursor: pointer; }
+.example .scrollbar .handle .mousearea { position: absolute; top: -9px; left: 0; width: 100%; height: 20px; }
+
+.example .pages { list-style: none; margin: 20px 0; padding: 0; text-align: center; }
+.example .pages li { display: inline-block; width: 14px; height: 14px; margin: 0 4px; text-indent: -999px; border-radius: 10px; cursor: pointer; overflow: hidden;
+    background: #fff; box-shadow: inset 0 0 0 1px rgba(0,0,0,.2);
+}
+.example .pages li:hover { background: #aaa; }
+.example .pages li.active { background: #666; }
+
+.example .controls { margin: 50px 0 0; text-align: center; }
+.example .controls .divider { display: inline-block; margin: 0 10px; }
+.example .controls button { line-height: 32px; vertical-align: middle; font-family: Novecento, sans-serif; }
+.example .controls button i { position: relative; top: -2px; margin: 5px; padding: 0; font-size: 32px; vertical-align: middle; }
+
+/* 3D shenanigans */
+.frame {
+    height: 200px;
+    line-height: 200px;
+    -webkit-perspective: 800px;
+    -ms-perspective: 800px;
+    perspective: 800px;
+    -webkit-perspective-origin: 50% 50%;
+    -ms-perspective-origin: 50% 50%;
+    perspective-origin: 50% 50%;
+}
+.frame ul {
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.frame ul li {
+    position: relative;
+    margin: 0 -25px;
+    border: 1px solid #3e404a;
+    -webkit-transform: rotateY(60deg) scale(0.9);
+    -ms-transform: rotateY(60deg) scale(0.9);
+    transform: rotateY(60deg) scale(0.9);
+    -webkit-transition: -webkit-transform 300ms ease-out;
+    transition: transform 300ms ease-out;
+}
+.frame ul li.active {
+    z-index: 10;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+.frame ul li.active ~ li {
+    -webkit-transform: rotateY(-60deg) scale(0.9);
+    -ms-transform: rotateY(-60deg) scale(0.9);
+    transform: rotateY(-60deg) scale(0.9);
 }
