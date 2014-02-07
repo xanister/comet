@@ -26,8 +26,9 @@ gem 'turbolinks'
 
 gem 'therubyracer'
 
+gem 'sqlite3'
+  
 group :development do
-  gem 'sqlite3'
   gem "capistrano", "~> 2.15.0"
   gem 'rvm-capistrano'
 end
