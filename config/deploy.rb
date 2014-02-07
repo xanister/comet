@@ -9,7 +9,7 @@ set :branch, "master"
 set :user, "ubuntu"
 set :group, "deployers"
 set :use_sudo, true
-set :rails_env, "production"
+set :rails_env, "development"
 set :deploy_via, :copy
 set :ssh_options, { :forward_agent => true, :keys => '/Users/nfrees/.ssh/nick_keypair.pem' }
 set :keep_releases, 5
@@ -45,5 +45,5 @@ end
 
 after "deploy", "deploy:bundle_install"
 after "deploy", "deploy:db_migrate"
-after "deploy", "deploy:compile_assets"
+#after "deploy", "deploy:compile_assets"
 after "deploy", "deploy:restart"
