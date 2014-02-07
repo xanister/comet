@@ -24,6 +24,8 @@ gem 'turbolinks'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'therubyracer'
+
 group :development do
   gem 'sqlite3'
   gem "capistrano", "~> 2.15.0"
