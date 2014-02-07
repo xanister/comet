@@ -22,6 +22,11 @@ namespace :deploy do
   task :start do ; end
   task :stop do ; end
 
+  desc "Bundle install"
+  task :bundle_install do
+    run "cd /var/www/anslemgalaxy/current && bundle install"
+  end    
+  
   desc "Compile assets"
   task :compile_assets do
     run "cd /var/www/anslemgalaxy/current && rake assets:precompile"
