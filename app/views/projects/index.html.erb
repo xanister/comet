@@ -1,3 +1,5 @@
 <h1>Listing projects</h1>
 
-<%= @projects.inspect %>
+<% @projects.each do |p| %>
+  <%= link_to p.name, edit_project_path(p) %>
+<% end %>
