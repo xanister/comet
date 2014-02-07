@@ -34,7 +34,7 @@ namespace :deploy do
   
   desc "DB Migrate"
   task :db_migrate do
-    run "cd /var/www/anslemgalaxy/current && rake db:migrate"
+    run "cd /var/www/anslemgalaxy/current && rake db:create"
   end  
   
   desc "Restart applicaiton"
