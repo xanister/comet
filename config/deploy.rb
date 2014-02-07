@@ -27,15 +27,15 @@ namespace :deploy do
     run "cd /var/www/anslemgalaxy/current && bundle install"
   end    
   
+  desc "DB Migrate"
+  task :db_migrate do
+    run "cd /var/www/anslemgalaxy/current && rake db:migrate"
+  end    
+  
   desc "Compile assets"
   task :compile_assets do
     run "cd /var/www/anslemgalaxy/current && rake assets:precompile"
   end
-  
-  desc "DB Migrate"
-  task :db_migrate do
-    run "cd /var/www/anslemgalaxy/current && rake db:create"
-  end  
   
   desc "Restart applicaiton"
   task :restart do
