@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <style>
+            body{
+                height: 768px;
+                background-image: -webkit-gradient(
+                    linear,
+                    left top,
+                    left bottom,
+                    color-stop(0, #F4B965),
+                    color-stop(1, #E034DA)
+                    );
+                background-image: -o-linear-gradient(bottom, #F4B965 0%, #E034DA 100%);
+                background-image: -moz-linear-gradient(bottom, #F4B965 0%, #E034DA 100%);
+                background-image: -webkit-linear-gradient(bottom, #F4B965 0%, #E034DA 100%);
+                background-image: -ms-linear-gradient(bottom, #F4B965 0%, #E034DA 100%);
+                background-image: linear-gradient(to bottom, #F4B965 0%, #E034DA 100%);
+            }
+
+            /* Portrait */
+            @media screen and (orientation:portrait) {
+                /* Portrait styles */
+                .slides-container{
+                    background-color: red;
+                }
+            }
+
+            /* Landscape */
+            @media screen and (orientation:landscape) {
+                /* Landscape styles */
+                .slides-container{
+                    background-color: green;
+                }
+            }
+
+
+            .slides-container{
+                width: 640px;
+                height: 480px;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+            .slides-interior{
+                width: 6400px;
+                height: 480px;
+            }
+            .slide{
+                width: 640px;
+                height: 480px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slides-container">
+            <div class="slides-interior">
+                <div class="slide" data-index="0">Slide 1</div>
+                <div class="slide" data-index="1">Slide 2</div>
+                <div class="slide" data-index="2">Slide 3</div>
+                <div class="slide" data-index="3">Slide 4</div>
+                <div class="slide" data-index="4">Slide 5</div>
+                <div class="slide" data-index="5">Slide 6</div>
+                <div class="slide" data-index="6">Slide 7</div>
+                <div class="slide" data-index="7">Slide 8</div>
+                <div class="slide" data-index="8">Slide 9</div>
+                <div class="slide" data-index="9">Slide 10</div>
+            </div>
+        </div>
+        <div class="next">Next</div>
+        <div class="prev">Prev</div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var cur_slide = 0;
+                $('.next').click(function() {
+                    cur_slide += 1;
+                    if (cur_slide == 5)
+                        cur_slide = 0;
+                    $('.slide').fadeOut();
+                    $('.slide[data-index="' + cur_slide + '"').fadeIn();
+                    //var new_margin = -cur_slide * 640;
+                    //$('.slides-interior').css('margin-left', new_margin + 'px');
+                    //console.log(new_margin);
+                });
+                $('.prev').click(function() {
+                    cur_slide -= 1;
+                    if (cur_slide < 0)
+                        cur_slide = 5;
+                    $('.slide').fadeOut();
+                    $('.slide[data-index="' + cur_slide + '"').fadeIn();
+
+                    //var new_margin = -cur_slide * 640;
+                    //$('.slides-interior').css('margin-left', new_margin + 'px');
+                    //console.log(new_margin);
+                });
+
+                setInterval(function() {
+                    console.log('fda');
+                    $('.next').click();
+                }, 3000);
+            });
+        </script>
+    </body>
+</html>

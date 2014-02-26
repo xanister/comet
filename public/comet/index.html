@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/comet.css">
+    </head>
+    <body>
+        <div class="stage" id="stage"></div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/comet.js"></script>
+        <script type="text/javascript">
+            //var universe;
+            $(document).ready(function() {
+                var universe = new Universe($('#stage'));
+                universe.start();
+            });
+        </script>
+    </body>
+</html>
