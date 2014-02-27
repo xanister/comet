@@ -5,10 +5,14 @@
  */
 function Universe(stage) {
     // Default universe stats
+    this.difficulty = 20;
+    this.update_interval = -1;
+
+    // Initialize the stage
     this.stage = stage;
     this.stage.data('universe', this);
-    this.difficulty = 30;
-    this.update_interval = -1;
+    this.stage.css('position', 'relative');
+    this.stage.css('overflow', 'hidden');
 
     // Add myself to global
     window.universe = this;
@@ -22,6 +26,11 @@ function Universe(stage) {
 
     // Append info box
     stage.append("<div class='stats'></div>");
+    $('.stats').css('position', 'absolute');
+    $('.stats').css('z-index', 1);
+    $('.stats').css('color', 'white');
+    $('.stats').css('background-color', 'blue');
+    $('.stats').css('padding', '5px');
 
     // Bind input events
     $(document).on('keydown', function(e) {
@@ -92,9 +101,8 @@ function Universe(stage) {
      * @returns {Boolean}
      */
     this.update = function() {
-        // Update comets, be sure to update player first
-        $('.player').data('comet').update();
-        $.each($('.enemy'), function(index, comet) {
+        // Update comets and player
+        $.each($('.comet'), function(index, comet) {
             $(comet).data('comet').update();
         });
 
@@ -134,13 +142,12 @@ function Comet(stage, is_player) {
     this.id = Comet.id_counter++;
 
     // Default stats
-    this.status = 'alive';  // Status [alive, dead, paused...]
-    this.score = 0;         // Score if applicable
     this.color = 'blue';    // Box color
     this.strength = 2;      // Damage to elements collided with
 
-    // Player specific stats
+    // Player/comet specific stats
     if (typeof is_player == 'undefined') {
+        // Create a random comet and start it moving
         this.size = Math.floor(Math.random() * (Comet.max_size - Comet.min_size)) + Comet.min_size;
         this.x = stage.width() + Math.floor(Math.random() * stage.width());
         this.y = Math.floor(Math.random() * stage.height());
@@ -149,6 +156,8 @@ function Comet(stage, is_player) {
         this.color = 'red';
         this.is_player = false;
     } else {
+        // Initialize the player
+        this.score = 0;
         this.size = Comet.max_size;
         this.x = this.size * 2;
         this.y = stage.height() / 2;
@@ -168,11 +177,7 @@ function Comet(stage, is_player) {
     this.element = $('#comet-' + this.id);
     this.element.data('comet', this);
     this.element.css('background-color', this.color);
-    if (this.is_player) {
-        this.element.addClass('player');
-    } else {
-        this.element.addClass('enemy');
-    }
+    this.element.css('position', 'absolute');
 
     /** collides
      *
@@ -199,39 +204,21 @@ function Comet(stage, is_player) {
         this.element.css('left', this.x - (this.size / 2) + 'px');
         this.element.css('top', this.y - (this.size / 2) + 'px');
 
-        /*
-         // Update size and position
-         this.element.animate({
-         width: this.size,
-         height: this.size,
-         left: this.x - (this.size / 2),
-         top: this.y - (this.size / 2)
-         }, Universe.update_speed, function() {
-         // Animation complete.
-         });
-         */
-
         // Handle input/ai
         if (this.is_player) {
             if (window.key_down[Universe.input_restart])
                 window.universe.restart();
-            if (this.status != 'dead') {
-                if (window.key_down[Universe.input_left] && (this.bbox_left - this.speed_x) > 0)
-                    this.x -= this.speed_x;
-                if (window.key_down[Universe.input_up] && (this.bbox_top - this.speed_y) > 0)
-                    this.y -= this.speed_y;
-                if (window.key_down[Universe.input_right] && (this.bbox_right + this.speed_x) < this.element.parent().width())
-                    this.x += this.speed_x;
-                if (window.key_down[Universe.input_down] && (this.bbox_bottom + this.speed_y) < this.element.parent().height())
-                    this.y += this.speed_y;
-                if (window.key_down[Universe.input_restart]) {
+            if (window.key_down[Universe.input_left] && (this.bbox_left - this.speed_x) > 0)
+                this.x -= this.speed_x;
+            if (window.key_down[Universe.input_up] && (this.bbox_top - this.speed_y) > 0)
+                this.y -= this.speed_y;
+            if (window.key_down[Universe.input_right] && (this.bbox_right + this.speed_x) < this.element.parent().width())
+                this.x += this.speed_x;
+            if (window.key_down[Universe.input_down] && (this.bbox_bottom + this.speed_y) < this.element.parent().height())
+                this.y += this.speed_y;
 
-                }
-                this.score += 0.1;
-                $('.stats').html("SCORE: " + Math.floor(this.score));
-            } else {
-                // Handle restart
-            }
+            this.score += 0.1;
+            $('.stats').html("<p>score: " + Math.floor(this.score) + "</p>");
         } else {
             this.x += this.speed_x;
             this.y += this.speed_y;
@@ -242,8 +229,6 @@ function Comet(stage, is_player) {
         $.each($('.comet'), function(key, val) {
             var comet = $(val).data('comet');
             if (comet.id != me.id && me.collides(comet)) {
-
-
                 if (me.is_player) {
                     me.size -= comet.strength;
                     me.x -= Math.floor(comet.strength / 2);
@@ -298,22 +283,11 @@ function Comet(stage, is_player) {
      */
     this.kill = function() {
         if (this.is_player) {
-            if (this.status != 'dead') {
-                this.status = 'dead';
-                this.element.addClass('dead');
-                $('.stats').append("<p>game over...</p>");
-            }
+            $('.stats').html("<p>score: " + this.score + "</p><p>game over...</p>");
+            window.universe.stop();
         } else {
             $('#comet-' + this.id).remove();
         }
-    };
-
-    /** getUniverse
-     *
-     * @returns {Universe}
-     */
-    this.getUniverse = function() {
-        return this.element.parent().data('universe');
     };
 }
 

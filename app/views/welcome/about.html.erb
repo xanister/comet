@@ -1,1 +1,8 @@
-about
+<div class="stage" id="stage" style="width: 1024px; height: 768px;"></div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var universe = new Universe($('#stage'));
+    universe.start();
+  });
+</script>
