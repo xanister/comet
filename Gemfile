@@ -4,8 +4,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 # Use mysql as the database for Active Record
-gem 'mysql'
-gem 'mysql2', '0.2.6'
+group :production do
+  gem 'mysql'
+  gem 'mysql2', '0.2.6'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

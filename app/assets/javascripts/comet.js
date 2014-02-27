@@ -5,7 +5,7 @@
  */
 function Universe(stage) {
     // Default universe stats
-    this.difficulty = 20;
+    this.difficulty = 40;
     this.update_interval = -1;
 
     // Initialize the stage
@@ -52,12 +52,17 @@ function Universe(stage) {
      */
     this.start = function() {
         // Clear old interval if needed
-        if (this.update_interval != -1)
+        if (this.update_interval !== -1)
             clearInterval(this.update_interval);
 
         // Add the player if needed
-        if (Universe.player == -1)
+        //if (Universe.player === -1) {
+        if ($('#comet-0').length === 0) {
+            console.log('adding player');
             Universe.player = this.addComet(true);
+        } else {
+            console.log(Universe.player);
+        }
 
         // Start the new update interval
         var me = this;
@@ -94,7 +99,7 @@ function Universe(stage) {
         this.start();
 
         return true;
-    }
+    };
 
     /** update
      *
@@ -116,6 +121,7 @@ function Universe(stage) {
 
     /** addComet
      *
+     * @param {Boolean} is_player
      * @returns {Comet}
      */
     this.addComet = function(is_player) {
@@ -134,7 +140,8 @@ function Universe(stage) {
 
 /** Comet
  *
- * @param {Universe} universe
+ * @param {Element} stage
+ * @param {Boolean} is_player
  * @returns {Comet}
  */
 function Comet(stage, is_player) {
@@ -146,7 +153,7 @@ function Comet(stage, is_player) {
     this.strength = 2;      // Damage to elements collided with
 
     // Player/comet specific stats
-    if (typeof is_player == 'undefined') {
+    if (typeof is_player === 'undefined') {
         // Create a random comet and start it moving
         this.size = Math.floor(Math.random() * (Comet.max_size - Comet.min_size)) + Comet.min_size;
         this.x = stage.width() + Math.floor(Math.random() * stage.width());
@@ -189,7 +196,7 @@ function Comet(stage, is_player) {
                 this.bbox_right < comet.bbox_right && this.bbox_right > comet.bbox_left) &&
                 (this.bbox_top > comet.bbox_top && this.bbox_top < comet.bbox_bottom ||
                         this.bbox_bottom > comet.bbox_top && this.bbox_bottom < comet.bbox_bottom));
-    }
+    };
 
     /** update
      *
@@ -218,7 +225,7 @@ function Comet(stage, is_player) {
                 this.y += this.speed_y;
 
             this.score += 0.1;
-            $('.stats').html("<p>score: " + Math.floor(this.score) + "</p>");
+            $('.stats').html("<div>score: " + Math.floor(this.score) + "</div>");
         } else {
             this.x += this.speed_x;
             this.y += this.speed_y;
@@ -228,7 +235,7 @@ function Comet(stage, is_player) {
         var me = this;
         $.each($('.comet'), function(key, val) {
             var comet = $(val).data('comet');
-            if (comet.id != me.id && me.collides(comet)) {
+            if (comet.id !== me.id && me.collides(comet)) {
                 if (me.is_player) {
                     me.size -= comet.strength;
                     me.x -= Math.floor(comet.strength / 2);
@@ -283,7 +290,7 @@ function Comet(stage, is_player) {
      */
     this.kill = function() {
         if (this.is_player) {
-            $('.stats').html("<p>score: " + this.score + "</p><p>game over...</p>");
+            $('.stats').append("<div>game over...</div>");
             window.universe.stop();
         } else {
             $('#comet-' + this.id).remove();
